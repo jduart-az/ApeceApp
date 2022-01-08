@@ -15,11 +15,16 @@ function ModuleActionSheet() {
     setShowModuleActionSheet(false);
     navigation.navigate("AddQuestion", { moduleId: String(moduleId) });
   }
+  const onQuestionsPress = () => {
+    setShowModuleActionSheet(false);
+    navigation.navigate("Questions", { moduleId: String(moduleId) });
+  }
 
   return (
     <Actionsheet isOpen={showModuleActionSheet} onClose={onCloseActionSheet} >
       <Actionsheet.Content>
         <Actionsheet.Item onPress={onAddQuestionPress}>Adicionar pergunta</Actionsheet.Item>
+        <Actionsheet.Item onPress={onQuestionsPress}>Ver perguntas</Actionsheet.Item>
         <Actionsheet.Item>Desativar módulo</Actionsheet.Item>
         <Actionsheet.Item _text={{ color: "red.400" }} onPress={onCloseActionSheet}>Cancelar</Actionsheet.Item>
       </Actionsheet.Content>

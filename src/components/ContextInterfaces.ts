@@ -10,7 +10,7 @@ export const DefaultModule = [{
 export const DefaultQuestion = [{
   "id": -1,
   "question": "",
-  "enable": true
+  "enable": 1
 }]
 
 export const DefaultAnswer = {
