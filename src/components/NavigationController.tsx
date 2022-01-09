@@ -8,6 +8,7 @@ import { RootStackParamList } from './ScreenNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { Link } from 'native-base';
 import Questions from './Questions';
+import Answers from './Answers';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -24,6 +25,7 @@ const NavigationController = () => {
       <Stack.Screen name="Modules" options={{ headerTitle: "Módulos" }} component={Modules} />
       <Stack.Screen name="AddQuestion" options={{ headerTitle: "Adicionar pergunta", headerBackTitle: "" }} component={AddQuestion} />
       <Stack.Screen name="Questions" options={{ headerTitle: "Lista perguntas", headerBackTitle: "" }} component={Questions} />
+      <Stack.Screen name="Answers" options={{ headerTitle: "Lista de respostas", headerBackTitle: "" }} component={Answers} />
       <Stack.Screen name="AddAnswer" options={{ headerTitle: "Adicionar resposta", headerBackTitle: "", headerRight: linkHeader }} component={AddAnswer} />
     </Stack.Navigator>
   );

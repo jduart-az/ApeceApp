@@ -9,12 +9,14 @@ function ModuleModal() {
   const [addModule, setAddModule] = useState({
     id: -1,
     title: "",
-    description: ""
+    description: "",
+    url: ""
   });
 
   const onCloseModal = () => setShowModuleModal(false);
   const onInputChangeTitle = (title: string) => setAddModule({ ...addModule, title: title });
   const onInputChangeDescription = (description: string) => setAddModule({ ...addModule, description: description });
+  const onInputChangeURL = (url: string) => setAddModule({ ...addModule, url: url });
 
   const onSavePress = () => {
     fetch("http://localhost:3001/modules", {
@@ -25,7 +27,8 @@ function ModuleModal() {
       credentials: "include",
       body: JSON.stringify({
         title: addModule.title,
-        description: addModule.description
+        description: addModule.description,
+        url: addModule.url
       })
     }).then(res => {
       res.json().then(r => setModules(r))
@@ -46,6 +49,10 @@ function ModuleModal() {
           <Box mt="3">
             <Text>Descrição</Text>
             <TextArea variant="underlined" onChangeText={onInputChangeDescription} />
+          </Box>
+          <Box mt="3">
+            <Text>URL do vídeo de apresentação</Text>
+            <Input variant="underlined" onChangeText={onInputChangeURL} />
           </Box>
         </Modal.Body>
         <Modal.Footer>

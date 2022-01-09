@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Pressable, Heading, VStack, Text, Box, Input, Stack, Fab, NativeBaseProvider, Center } from 'native-base';
+import { ScrollView, Pressable, Heading, VStack, Text, Box, Input, Stack, Fab, NativeBaseProvider, Center, Spacer, HStack } from 'native-base';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import ModuleModal from './ModuleModal';
 import ModuleActionSheet from './ModuleActionSheet';
@@ -15,11 +15,16 @@ function Modules() {
   const [showModuleModal, setShowModuleModal] = useState(false);
   const [showModuleActionSheet, setShowModuleActionSheet] = useState(false);
   const [searchModule, setSearchModule] = useState("");
-  const [modules, setModules] = useState<IModule>(DefaultModule);
+  const [modules, setModules] = useState<Array<IModule>>([]);
   const [moduleId, setModuleId] = useState("");
 
 
   const onAddModulePress = () => setShowModuleModal(true);
+  const onModulePress = (moduleId: string) => {
+    return () => {
+      navigation.navigate("Questions", { moduleId: String(moduleId) });
+    }
+  }
   const onActionSheetPress = (moduleId: string) => {
     return () => {
       setModuleId(moduleId);
@@ -72,8 +77,16 @@ function Modules() {
           <ScrollView showsVerticalScrollIndicator={false}>
             {filteredModules.map((module: any, index: number) => {
               return (
-                <Pressable key={index} onLongPress={onActionSheetPress(module.id)}>
-                  <Box marginBottom={2} width="100%" p={3} h={100} bg="primary.500" rounded="md" shadow={1}>{module.title + "\n" + module.description}</Box>
+                <Pressable key={index} onLongPress={onActionSheetPress(module.id)} onPress={onModulePress(module.id)}>
+                  <Box marginBottom={2} width="100%" p={3} h={100} bg="primary.500" rounded="md" shadow={1}>
+                    <HStack alignItems={"flex-start"}>
+                      <Text fontWeight="medium" fontSize={20}>{module.title}</Text>
+                      <Spacer />
+                      <Text>{module.enable ? "enable" : "disable"}</Text>
+                    </HStack>
+                    <Text>{module.description}</Text>
+                    <Text>URL: {module.url ? "ok" : "nok"}</Text>
+                  </Box>
                   <ModuleActionSheet />
                 </Pressable>
               )

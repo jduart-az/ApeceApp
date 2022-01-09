@@ -1,17 +1,19 @@
 import { createContext } from 'react';
 
-export const DefaultModule = [{
-  "id": -1,
-  "title": "",
-  "description": "",
-  "enable": true
-}]
+export const DefaultModule = {
+  id: -1,
+  title: "",
+  description: "",
+  enable: true,
+  url: ""
+}
 
-export const DefaultQuestion = [{
+export const DefaultQuestion = {
   "id": -1,
   "question": "",
-  "enable": 1
-}]
+  "enable": 1,
+  "moduleId": -1
+}
 
 export const DefaultAnswer = {
   id: -1,
@@ -37,7 +39,7 @@ export interface AnswerProps {
 
 export interface ModulesContextInterface {
   modules?: IModule;
-  setModules: (modulea: IModule) => void;
+  setModules: (modules: IModule[]) => void;
   showModuleModal: boolean;
   setShowModuleModal: (s: boolean) => void;
   showModuleActionSheet: boolean;

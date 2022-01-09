@@ -5,20 +5,24 @@ import ModuleModal from './ModuleModal';
 import ModuleActionSheet from './ModuleActionSheet';
 import { DefaultModule, DefaultQuestion, IModule, IQuestion, ModuleContext } from './ContextInterfaces';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { ModulesScreenProps, QuestionScreenRouteProp } from './ScreenNavigation';
+import { ModulesScreenProps, QuestionScreenRouteProp, QuestionsScreenProps } from './ScreenNavigation';
 
 // import images
 export const welcomeAssets = require("../../assets/images/welcome.png");
 
 function Questions() {
-  const navigation = useNavigation<ModulesScreenProps>();
+  const navigation = useNavigation<QuestionsScreenProps>();
   const route = useRoute<QuestionScreenRouteProp>();
   const { moduleId } = route.params;
 
   const [question, setQuestion] = useState<IQuestion>(DefaultQuestion);
   const [questions, setQuestions] = useState<Array<IQuestion>>([]);
 
-
+  const onQuestionPress = (questionId: string) => {
+    return () => {
+      navigation.navigate("Answers", { questionId: questionId });
+    }
+  }
 
   useEffect(() => {
     fetch(`http://localhost:3001/module/${moduleId}/questions`, {
@@ -41,7 +45,7 @@ function Questions() {
         <ScrollView showsVerticalScrollIndicator={false}>
           {questions.map((q: any, index: number) => {
             return (
-              <Pressable key={index} >
+              <Pressable key={index} onPress={onQuestionPress(q.id)} >
                 <Box marginBottom={2} width="100%" p={3} h={100} bg="primary.500" rounded="md" shadow={1}>{q.question}</Box>
                 <ModuleActionSheet />
               </Pressable>
