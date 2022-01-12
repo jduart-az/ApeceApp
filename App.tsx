@@ -17,14 +17,14 @@ import Quiz from './src/components/user/Quiz';
 
 const App = () => {
   return (
-    <NativeBaseProvider>
-      <Quiz />
-    </NativeBaseProvider>
-    // <NavigationContainer>
-    //   <NativeBaseProvider>
-    //     <NavigationController />
-    //   </NativeBaseProvider>
-    // </NavigationContainer>
+    // <NativeBaseProvider>
+    //   <Quiz />
+    // </NativeBaseProvider>
+    <NavigationContainer>
+      <NativeBaseProvider>
+        <NavigationController />
+      </NativeBaseProvider>
+    </NavigationContainer>
   );
 };
 export default App;

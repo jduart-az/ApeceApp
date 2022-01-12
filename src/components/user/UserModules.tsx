@@ -2,20 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, Pressable, Heading, VStack, Text, Box, Input, Stack, Fab, NativeBaseProvider, Center, Spacer, HStack } from 'native-base';
 import { UserModuleContext, IModule } from './ContextInterfaces';
 import { useNavigation } from '@react-navigation/native';
-import { ModulesScreenProps } from '../ScreenNavigation';
+import { UserModulesScreenProps } from '../ScreenNavigation';
 
-// import images
-export const welcomeAssets = require("../../assets/images/welcome.png");
 
-function Modules() {
-  const navigation = useNavigation<ModulesScreenProps>();
+const UserModules = () => {
+
+  const navigation = useNavigation<UserModulesScreenProps>();
   const [searchModule, setSearchModule] = useState("");
   const [modules, setModules] = useState<Array<IModule>>([]);
   const [moduleId, setModuleId] = useState("");
 
-  const onModulePress = (moduleId: string) => {
+  const onModulePress = (moduleId: string, moduleName: string, moduleDescription: string, modulesYoutubeId: string) => {
     return () => {
-      navigation.navigate("Questions", { moduleId: String(moduleId) });
+      navigation.navigate("QuizIntro", {
+        moduleId: String(moduleId),
+        moduleName: moduleName,
+        moduleDescription: moduleDescription,
+        modulesYoutubeId: modulesYoutubeId
+      });
     }
   }
   const onSearchModule = (search: string) => setSearchModule(search);
@@ -60,15 +64,14 @@ function Modules() {
           <ScrollView showsVerticalScrollIndicator={false}>
             {filteredModules.map((module: any, index: number) => {
               return (
-                <Pressable key={index} onPress={onModulePress(module.id)}>
+                <Pressable key={index} onPress={onModulePress(module.id, module.title, module.description, module.url)}>
                   <Box marginBottom={2} width="100%" p={3} h={100} bg="primary.500" rounded="md" shadow={1}>
                     <HStack alignItems={"flex-start"}>
                       <Text fontWeight="medium" fontSize={20}>{module.title}</Text>
                       <Spacer />
-                      <Text>{module.enable ? "enable" : "disable"}</Text>
+                      <Text fontWeight="bold" fontSize={20}>#{index + 1}</Text>
                     </HStack>
                     <Text>{module.description}</Text>
-                    <Text>URL: {module.url ? "ok" : "nok"}</Text>
                   </Box>
                 </Pressable>
               )
@@ -79,4 +82,4 @@ function Modules() {
     </UserModuleContext.Provider >
   );
 };
-export default Modules;
+export default UserModules;

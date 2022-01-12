@@ -9,10 +9,10 @@ export const DefaultModule = {
 }
 
 export const DefaultQuestion = {
-  "id": -1,
-  "question": "",
-  "enable": 1,
-  "moduleId": -1
+  id: -1,
+  question: "",
+  enable: 1,
+  moduleId: -1
 }
 
 export const DefaultAnswer = {
@@ -33,20 +33,23 @@ export interface QuestionProps {
 }
 
 export interface AnswerProps {
-  answer: IAnswer;
-  setAnswer: (answer: IAnswer) => void;
+  questionId: string;
 }
 
 export interface IUserModulesContext {
   modules?: IModule;
-  setModules: (modules: IModule[]) => void;
+  setModules?: (modules: IModule[]) => void;
   moduleId?: string;
   setModuleId?: (id: string) => void;
+  questionId?: string;
+  setQuestionId?: (id: string) => void;
 }
 
 export const UserModuleContext = createContext<IUserModulesContext>({
   modules: DefaultModule,
   setModules: () => { },
   moduleId: "",
-  setModuleId: () => { }
+  setModuleId: () => { },
+  questionId: "",
+  setQuestionId: () => { }
 });

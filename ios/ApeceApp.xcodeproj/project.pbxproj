@@ -146,7 +146,6 @@
 				0814C16C271202C703AC8C7D /* Pods-ApeceApp-ApeceAppTests.debug.xcconfig */,
 				D7EBF99EF9357641ACCBEDA2 /* Pods-ApeceApp-ApeceAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -155,7 +154,6 @@
 			children = (
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -494,6 +492,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R94H84HLPY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ApeceApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -520,6 +519,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R94H84HLPY;
 				INFOPLIST_FILE = ApeceApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
