@@ -1,13 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Text, View, Button, Center, Heading, Container, Box, ScrollView, Radio } from 'native-base';
-import Swiper from 'react-native-swiper';
+import React, { useEffect, useRef, useState } from 'react';
+import { Text, Button, Center, Heading, Container, ScrollView } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { QuizScreenProps, QuizScreenRouteProp } from '../ScreenNavigation';
-import { QuestionProps, UserModuleContext } from './ContextInterfaces';
+import Swiper from 'react-native-swiper';
+import { QuizScreenProps, QuizScreenRouteProp } from '../../navigation/ScreenNavigation';
+import { IQuestion, IResult, QuizContext } from './ContextInterfaces';
 import QAnswers from './QAnswers';
-import { IQuestion } from './ContextInterfaces';
-import YoutubePlayer from 'react-native-youtube-iframe';
-import { WebView } from 'react-native-webview';
 
 const Quiz = () => {
 
@@ -17,36 +14,49 @@ const Quiz = () => {
   const swiper = useRef(null);
 
   const [questions, setQuestions] = useState<Array<IQuestion>>([]);;
-  const [questionId, setQuestionId] = useState("");
-  const [i, setI] = useState(0);
+  const [results, setResults] = useState<Array<IResult>>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [selectedQuestion, setSelectedQuestion] = useState("");
 
-  const [value, setValue] = useState("");
-  console.log("Radio value: ", value);
-
-
-
-
-  const onPressNext = () => {
-    //@ts-ignore
-    swiper.current.scrollBy(i);
-    setI(i + 1);
+  const onPressNext = (questionId: string) => {
+    return () => {
+      //@ts-ignore
+      swiper.current.scrollBy(pageCount);
+      if (!(pageCount + 1 === questions.length)) {
+        setPageCount(pageCount + 1);
+        setSelectedQuestion("");
+      } else {
+        const saveQuiz = async () => {
+          await fetch(``, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            credentials: "include",
+          }).then(res => { res.json().then(r => console.log(r)) });
+        }
+        //saveQuiz();
+        console.log("Finish!");
+      }
+      results.push({ questionId: questionId, answerId: selectedQuestion });
+      console.log("Results: ", results);
+    }
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3001/module/${moduleId}/questions`, {
-      method: "get",
-      headers: { "content-type": "application/json" },
-      credentials: "include"
-    }).then(res => {
-      res.json().then(r => setQuestions(r))
-    });
+    const getQuestion = async () => {
+      await fetch(`http://localhost:3001/module/${moduleId}/questions`, {
+        method: "get",
+        headers: { "content-type": "application/json" },
+        credentials: "include"
+      }).then(res => {
+        res.json().then(r => setQuestions(r))
+      });
+    }
+    getQuestion();
   }, []);
 
   return (
-    <UserModuleContext.Provider value={{
-      questionId
-    }}>
-      <Swiper scrollEnabled={false} ref={swiper} showsButtons={false} activeDotColor={'white'} index={i} loop={false}>
+    <QuizContext.Provider value={{ selectedQuestion, setSelectedQuestion }}>
+      <Swiper scrollEnabled={false} ref={swiper} showsButtons={false} activeDotColor={'white'} index={pageCount} loop={false}>
         {questions.map((q: any, index: number) => {
           return (
             <ScrollView key={index} w={"full"} h={"full"} backgroundColor={"blue.100"}>
@@ -64,13 +74,13 @@ const Quiz = () => {
                 </Container>
               </Center>
               <Center>
-                <Button onPress={onPressNext} width={"75%"} mt={4}>Next</Button>
+                <Button onPress={onPressNext(q.id)} width={"75%"} mt={4} isDisabled={selectedQuestion ? false : true}>{pageCount + 1 === questions.length ? "Terminar" : "Próxima"}</Button>
               </Center>
             </ScrollView >
           )
         })}
       </Swiper >
-    </UserModuleContext.Provider>
+    </QuizContext.Provider>
   );
 };
 export default Quiz;

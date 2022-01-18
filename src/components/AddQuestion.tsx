@@ -5,7 +5,7 @@ import ModuleModal from './ModuleModal';
 import ModuleActionSheet from './ModuleActionSheet';
 import { DefaultModule, IModule, ModuleContext, QuestionProps } from './ContextInterfaces';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { AddQuestionScreenProps, AddQuestionScreenRouteProp } from './ScreenNavigation';
+import { AddQuestionScreenProps, AddQuestionScreenRouteProp } from '../navigation/ScreenNavigation';
 
 
 const AddAnswer = () => {

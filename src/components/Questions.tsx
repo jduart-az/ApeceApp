@@ -5,7 +5,7 @@ import ModuleModal from './ModuleModal';
 import ModuleActionSheet from './ModuleActionSheet';
 import { DefaultModule, DefaultQuestion, IModule, IQuestion, ModuleContext } from './ContextInterfaces';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { ModulesScreenProps, QuestionScreenRouteProp, QuestionsScreenProps } from './ScreenNavigation';
+import { ModulesScreenProps, QuestionScreenRouteProp, QuestionsScreenProps } from '../navigation/ScreenNavigation';
 
 // import images
 export const welcomeAssets = require("../../assets/images/welcome.png");

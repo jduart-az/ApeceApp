@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { Actionsheet } from 'native-base';
 import { ModuleContext } from './ContextInterfaces';
 import { useNavigation } from '@react-navigation/native';
-import { ModulesScreenProps } from './ScreenNavigation';
+import { ModulesScreenProps } from '../navigation/ScreenNavigation';
 
 
 function ModuleActionSheet() {

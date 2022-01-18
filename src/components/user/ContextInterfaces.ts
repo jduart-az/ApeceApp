@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 export const DefaultModule = {
-  id: -1,
+  id: "-1",
   title: "",
   description: "",
   enable: true,
@@ -23,9 +23,20 @@ export const DefaultAnswer = {
   questionId: -1
 }
 
+// export const DefaultResult = [{
+//   questionId: "",
+//   answerId: ""
+// }]
+
 export type IQuestion = typeof DefaultQuestion;
 export type IModule = typeof DefaultModule;
 export type IAnswer = typeof DefaultAnswer;
+//export type IResult = typeof DefaultResult;
+
+export interface IResult {
+  questionId: string,
+  answerId: string
+}
 
 export interface QuestionProps {
   questions: IQuestion;
@@ -34,7 +45,19 @@ export interface QuestionProps {
 
 export interface AnswerProps {
   questionId: string;
+  isSelected?: boolean;
+  setIsSelected?: (s: boolean) => {};
 }
+
+export interface IQuizContext {
+  selectedQuestion: string,
+  setSelectedQuestion: (s: string) => void;
+}
+
+export const QuizContext = createContext<IQuizContext>({
+  selectedQuestion: "",
+  setSelectedQuestion: () => { },
+});
 
 export interface IUserModulesContext {
   modules?: IModule;

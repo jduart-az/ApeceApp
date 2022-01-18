@@ -1,16 +1,16 @@
 import React from 'react';
-import Login from './Login';
-import Modules from './Modules';
-import AddQuestion from './AddQuestion';
-import AddAnswer from './AddAnswer';
+import Login from '../components/Login';
+import Modules from '../components/Modules';
+import AddQuestion from '../components/AddQuestion';
+import AddAnswer from '../components/AddAnswer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './ScreenNavigation';
 import { Link } from 'native-base';
-import Questions from './Questions';
-import Answers from './Answers';
-import UserModules from './user/UserModules';
-import Quiz from './user/Quiz';
-import QuizIntro from './user/QuizIntro';
+import Questions from '../components/Questions';
+import Answers from '../components/Answers';
+import UserModules from '../components/user/UserModules';
+import Quiz from '../components/user/Quiz';
+import QuizIntro from '../components/user/QuizIntro';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

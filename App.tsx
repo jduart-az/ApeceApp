@@ -11,7 +11,7 @@
 
 import React from 'react';
 import { Center, NativeBaseProvider } from 'native-base';
-import NavigationController from './src/components/NavigationController';
+import NavigationController from './src/navigation/NavigationController';
 import { NavigationContainer } from '@react-navigation/native';
 import Quiz from './src/components/user/Quiz';
 

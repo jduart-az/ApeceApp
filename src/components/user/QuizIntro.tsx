@@ -1,13 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Text, View, Button, Center, Heading, Container, Box, ScrollView, Radio } from 'native-base';
-import Swiper from 'react-native-swiper';
+import React from 'react';
+import { Text, Button, Center, Heading, Box, ScrollView } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { QuizIntroScreenProps, QuizIntroScreenRouteProp, QuizScreenProps, QuizScreenRouteProp } from '../ScreenNavigation';
-import { QuestionProps, UserModuleContext } from './ContextInterfaces';
-import QAnswers from './QAnswers';
-import { IQuestion } from './ContextInterfaces';
+import { QuizIntroScreenProps, QuizIntroScreenRouteProp } from '../../navigation/ScreenNavigation';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import { WebView } from 'react-native-webview';
 
 const QuizIntro = () => {
 
@@ -19,14 +14,10 @@ const QuizIntro = () => {
     navigation.navigate("Quiz", { moduleId: moduleId });
   }
 
-
-
   return (
     <ScrollView w={"full"} h={"full"} backgroundColor={"blue.100"}>
       <Box safeAreaTop={20}>
-        <Heading textAlign="center" mb="10">
-          {moduleName}
-        </Heading>
+        <Heading textAlign="center" mb="10">{moduleName}</Heading>
         <Center>
           <Text fontSize={"lg"} textAlign={"center"} paddingX={"4"} marginBottom={"8"}>{moduleDescription}</Text>
           <YoutubePlayer
@@ -38,7 +29,6 @@ const QuizIntro = () => {
             webViewProps={{ pointerEvents: "none" }}
           />
           <Button w={"90%"} onPress={onStartPress}>Iniciar</Button>
-
         </Center>
       </Box>
     </ScrollView >
