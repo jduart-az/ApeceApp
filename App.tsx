@@ -9,22 +9,29 @@
  */
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Center, NativeBaseProvider } from 'native-base';
 import NavigationController from './src/navigation/NavigationController';
 import { NavigationContainer } from '@react-navigation/native';
 import Quiz from './src/components/user/Quiz';
+import { DefaultUser, IUser, StateLoginContext } from './src/components/ContextInterfaces';
 
 const App = () => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState<IUser>(DefaultUser);
+
   return (
     // <NativeBaseProvider>
     //   <Quiz />
     // </NativeBaseProvider>
-    <NavigationContainer>
-      <NativeBaseProvider>
-        <NavigationController />
-      </NativeBaseProvider>
-    </NavigationContainer>
+    <StateLoginContext.Provider value={{ loggedIn, setLoggedIn, user, setUser }}>
+      <NavigationContainer>
+        <NativeBaseProvider>
+          <NavigationController />
+        </NativeBaseProvider>
+      </NavigationContainer>
+    </StateLoginContext.Provider>
   );
 };
 export default App;

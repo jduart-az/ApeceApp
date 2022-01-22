@@ -1,21 +1,29 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { HStack, Center, Heading, NativeBaseProvider, VStack, Image, Box, Input, Button } from 'native-base';
 import { Alert } from "react-native"
+import { DefaultUser, IUser, StateLoginContext } from './ContextInterfaces';
+import { AuthScreenProps } from '../navigation/ScreenNavigation';
+import { useNavigation } from '@react-navigation/native';
 
 export const welcomeAssets = require("../../assets/images/welcome.png");
 
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const navigation = useNavigation<AuthScreenProps>();
+  const [puser, setPuser] = useState("");
+  const [ppass, setPpass] = useState("");
+  const [infoUser, setInfoUser] = useState("");
+  const [resStatus, setResStatus] = useState(0);
+  const { loggedIn, setLoggedIn, user, setUser } = useContext(StateLoginContext);
 
-  const onInputChangeUser = (text: string) => {
-    setUsername(text)
+
+  const onInputChangeUser = (email: string) => {
+    setPuser(email);
   };
 
-  const onInputChangePassword = (text: string) => {
-    setPassword(text)
+  const onInputChangePassword = (password: string) => {
+    setPpass(password);
   };
 
   const onButtonPress = () => {
@@ -26,22 +34,29 @@ function Login() {
       },
       credentials: "include",
       body: JSON.stringify({
-        email: username,
-        password: password
+        email: puser,
+        password: ppass
       })
     }).then(res => {
-      res.json().then(r => Alert.alert(
-        "Mensagem",
-        r.message,
-        [
-          { text: "Cancelar" },
-          { text: "Ok" }
-        ]
-      ))
+      res.json().then(r => {
+        if (r.login) {
+          setUser(r.user);
+          setLoggedIn(r.login);
+          setInfoUser(r.message);
+          setResStatus(res.status);
+        } else {
+          setInfoUser(r.message);
+        }
+      }) //true
     }).catch(err => {
       console.log(err);
-    })
+    });
   }
+
+  useEffect(() => {
+    if (loggedIn) user.is_admin ? navigation.navigate("Modules") : navigation.navigate("UserModules");
+  }, [loggedIn]);
+
 
   return (
     <>
@@ -52,12 +67,12 @@ function Login() {
         <VStack space={7} alignItems="center">
           <Heading size="xl">e-APECE LOGIN</Heading>
           <HStack space={2} alignItems="center">
-            <Input value={username} autoFocus={true} w={{ base: "75%", md: "25%" }} variant="underlined" onChangeText={onInputChangeUser} placeholder="Username" />
+            <Input autoFocus={true} w={{ base: "75%", md: "25%" }} variant="underlined" onChangeText={onInputChangeUser} placeholder="Username" />
           </HStack>
           <HStack space={2} alignItems="center">
-            <Input value={password} w={{ base: "75%", md: "25%" }} variant="underlined" onChangeText={onInputChangePassword} placeholder="Password" secureTextEntry={true} />
+            <Input w={{ base: "75%", md: "25%" }} variant="underlined" onChangeText={onInputChangePassword} placeholder="Password" secureTextEntry={true} />
           </HStack>
-          <Button size="lg" w="300" variant="subtle" colorScheme="teal" onPress={onButtonPress}>login</Button>
+          <Button size="lg" w="300" variant="subtle" colorScheme="teal" onPress={onButtonPress}> login</Button>
         </VStack>
       </Center>
     </>

@@ -2,6 +2,9 @@ import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
+  //Login
+  Auth: undefined;
+
   // Admin
   Modules: undefined;
   Questions: {
@@ -28,7 +31,17 @@ export type RootStackParamList = {
     moduleDescription: string;
     modulesYoutubeId: string;
   }
+
+  //Results
+  FinalResult: {
+    finalResult: boolean;
+    errorAnswersCount: number;
+    totalQuestions: number;
+  }
 };
+
+//Login
+export type AuthScreenProps = NativeStackNavigationProp<RootStackParamList, "Auth">;
 
 // Admin
 export type ModulesScreenProps = NativeStackNavigationProp<RootStackParamList, "Modules">;
@@ -49,3 +62,11 @@ export type QuizIntroScreenProps = NativeStackNavigationProp<RootStackParamList,
 
 export type QuizScreenRouteProp = RouteProp<RootStackParamList, "Quiz">;
 export type QuizIntroScreenRouteProp = RouteProp<RootStackParamList, "QuizIntro">;
+
+//Result
+export type ResultScreenProps = NativeStackNavigationProp<RootStackParamList, "FinalResult">;
+
+export type ResultScreenRouteProp = RouteProp<RootStackParamList, "FinalResult">;
+
+
+

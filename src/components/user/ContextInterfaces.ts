@@ -34,8 +34,8 @@ export type IAnswer = typeof DefaultAnswer;
 //export type IResult = typeof DefaultResult;
 
 export interface IResult {
-  questionId: string,
-  answerId: string
+  question_id: string,
+  answer_id: string
 }
 
 export interface QuestionProps {

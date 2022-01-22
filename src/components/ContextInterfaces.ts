@@ -23,9 +23,19 @@ export const DefaultAnswer = {
   questionId: -1
 }
 
+export const DefaultUser = {
+  id: -1,
+  name: "",
+  email: "",
+  password: "",
+  enable: true,
+  is_admin: false
+}
+
 export type IQuestion = typeof DefaultQuestion;
 export type IModule = typeof DefaultModule;
 export type IAnswer = typeof DefaultAnswer;
+export type IUser = typeof DefaultUser;
 
 export interface QuestionProps {
   questions: IQuestion;
@@ -36,6 +46,29 @@ export interface AnswerProps {
   answer: IAnswer;
   setAnswer: (answer: IAnswer) => void;
 }
+
+export interface LoginAPIProps {
+  user: IUser;
+  setUser: (u: IUser) => void;
+  loggedIn: boolean;
+  setLoggedIn: (lg: boolean) => void;
+  infoUser: string;
+  setInfoUser: (info: string) => void;
+}
+
+export interface IStateLoginContext {
+  user: IUser;
+  setUser: (u: IUser) => void;
+  loggedIn: boolean;
+  setLoggedIn: (lu: boolean) => void;
+}
+
+export const StateLoginContext = createContext<IStateLoginContext>({
+  user: DefaultUser,
+  setUser: () => { },
+  loggedIn: false,
+  setLoggedIn: () => { }
+});
 
 export interface ModulesContextInterface {
   modules?: IModule;

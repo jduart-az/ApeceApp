@@ -22,22 +22,28 @@ const Quiz = () => {
     return () => {
       //@ts-ignore
       swiper.current.scrollBy(pageCount);
+      results.push({ question_id: questionId, answer_id: selectedQuestion });
+
       if (!(pageCount + 1 === questions.length)) {
         setPageCount(pageCount + 1);
         setSelectedQuestion("");
       } else {
-        const saveQuiz = async () => {
-          await fetch(``, {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            credentials: "include",
-          }).then(res => { res.json().then(r => console.log(r)) });
-        }
-        //saveQuiz();
-        console.log("Finish!");
+        fetch("http://localhost:3001/results", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            userId: 1, //TODO: When loggin get the user id
+            moduleId: moduleId,
+            results: results
+          })
+        }).then(res => {
+          res.json().then(r => {
+            navigation.navigate("FinalResult", { finalResult: r.finalResult, errorAnswersCount: r.errorAnswersCount, totalQuestions: r.totalQuestions })
+          })
+        });
+        //
       }
-      results.push({ questionId: questionId, answerId: selectedQuestion });
-      console.log("Results: ", results);
     }
   }
 
